@@ -1,0 +1,27 @@
+2020-03-09 15:03:40-DEBUG-debug test
+2020-03-09 15:03:40-INFO-info test
+2020-03-09 15:03:40-WARNING-warn test
+2020-03-09 15:03:40-ERROR-error test
+2020-03-09 15:03:40-ERROR-exception test
+NoneType: None
+2020-03-09 15:04:34-DEBUG-debug test
+2020-03-09 15:04:34-INFO-info test
+2020-03-09 15:04:34-WARNING-warn test
+2020-03-09 15:04:34-ERROR-error test
+2020-03-09 15:04:34-ERROR-exception test
+NoneType: None
+2020-03-09 15:05:19  DEBUG  debug test
+2020-03-09 15:05:19  INFO  info test
+2020-03-09 15:05:19  WARNING  warn test
+2020-03-09 15:05:19  ERROR  error test
+2020-03-09 15:05:19  ERROR  exception test
+NoneType: None
+2020-03-09 15:06:48  DEBUG  debug test
+2020-03-09 15:06:48  INFO  info test
+2020-03-09 15:06:48  WARNING  warn test
+2020-03-09 15:06:48  ERROR  error test
+2020-03-09 15:06:48  ERROR  unsupported operand type(s) for +: 'int' and 'str'
+Traceback (most recent call last):
+  File "E:/git-project/test/common/logger.py", line 76, in <module>
+    print(a + "2")
+TypeError: unsupported operand type(s) for +: 'int' and 'str'
