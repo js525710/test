@@ -1,7 +1,7 @@
 # encoding:utf-8
 import logging
 
-path = '..'
+path = '.'
 # create logger
 # 这里可以修改开源模块的日志等级
 formatter = logging.Formatter(fmt="%(asctime)s  %(levelname)s  %(message)s", datefmt="%Y-%m-%d %H:%M:%S")

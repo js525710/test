@@ -25,3 +25,39 @@ Traceback (most recent call last):
   File "E:/git-project/test/common/logger.py", line 76, in <module>
     print(a + "2")
 TypeError: unsupported operand type(s) for +: 'int' and 'str'
+2020-03-11 18:24:09  INFO  请求https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv返回的状态码为：403
+2020-03-11 18:24:09  ERROR  post请求返回状态码为：403
+2020-03-11 18:27:08  INFO  请求https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php返回的状态码为：200
+2020-03-11 18:27:08  INFO  执行结果: /**/jQuery110205803985141573091_1574406741069({"status":"0","t":"1574406812539","set_cache_time":"","data":[{"location":"澳大利亚","titlecont":"IP地址查询","origip":"1.1.1.1","origipquery":"1.1.1.1","showlamp":"1","showLikeShare":1,"shareImage":1,"ExtendedLocation":"","OriginQuery":"1.1.1.1","tplt":"ip","resourceid":"6006","fetchkey":"1.1.1.1","appinfo":"","role_id":0,"disp_type":0}]});
+2020-03-11 18:27:08  INFO  请求https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/data[0].location返回的状态码为：200
+2020-03-11 18:27:08  INFO  执行结果: 
+2020-03-11 18:27:13  INFO  请求https://www.zhihu.com/udid返回的状态码为：400
+2020-03-11 18:27:13  ERROR  post请求返回状态码为：400
+2020-03-11 18:27:18  INFO  请求https://www.zhihu.com/api/v3/oauth/captcha返回的状态码为：400
+2020-03-11 18:27:18  ERROR  post请求返回状态码为：400
+2020-03-11 18:27:23  INFO  请求https://www.zhihu.com/api/v3/oauth/sign_in返回的状态码为：400
+2020-03-11 18:27:23  ERROR  post请求返回状态码为：400
+2020-03-11 18:27:28  INFO  请求https://www.zhihu.com/user_id返回的状态码为：400
+2020-03-11 18:27:28  ERROR  post请求返回状态码为：400
+2020-03-11 19:32:32  INFO  执行结果: /**/jQuery110205803985141573091_1574406741069({"status":"0","t":"1574406812539","set_cache_time":"","data":[{"location":"澳大利亚","titlecont":"IP地址查询","origip":"1.1.1.1","origipquery":"1.1.1.1","showlamp":"1","showLikeShare":1,"shareImage":1,"ExtendedLocation":"","OriginQuery":"1.1.1.1","tplt":"ip","resourceid":"6006","fetchkey":"1.1.1.1","appinfo":"","role_id":0,"disp_type":0}]});
+2020-03-11 19:32:32  INFO  Fail
+2020-03-11 19:32:32  INFO  headers: {'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/x-www-form-urlencoded', 'x-zse-83': '3_2.0'}
+2020-03-11 19:32:37  INFO  请求https://www.zhihu.com/udid返回的状态码为：400
+2020-03-11 19:32:37  ERROR  post请求返回状态码为：400
+2020-03-11 19:32:42  INFO  执行结果: <html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+<hr><center>openresty</center>
+</body>
+</html>
+
+2020-03-11 19:32:47  INFO  请求https://www.zhihu.com/api/v3/oauth/sign_in返回的状态码为：400
+2020-03-11 19:32:47  ERROR  post请求返回状态码为：400
+2020-03-11 19:32:47  INFO  Fail
+2020-03-11 19:33:14  INFO  执行结果: /**/jQuery110205803985141573091_1574406741069({"status":"0","t":"1574406812539","set_cache_time":"","data":[{"location":"澳大利亚","titlecont":"IP地址查询","origip":"1.1.1.1","origipquery":"1.1.1.1","showlamp":"1","showLikeShare":1,"shareImage":1,"ExtendedLocation":"","OriginQuery":"1.1.1.1","tplt":"ip","resourceid":"6006","fetchkey":"1.1.1.1","appinfo":"","role_id":0,"disp_type":0}]});
+2020-03-11 19:33:14  INFO  Fail
+2020-03-11 19:50:34  INFO  执行结果: /**/jQuery110205803985141573091_1574406741069({"status":"0","t":"1574406812539","set_cache_time":"","data":[{"location":"澳大利亚","titlecont":"IP地址查询","origip":"1.1.1.1","origipquery":"1.1.1.1","showlamp":"1","showLikeShare":1,"shareImage":1,"ExtendedLocation":"","OriginQuery":"1.1.1.1","tplt":"ip","resourceid":"6006","fetchkey":"1.1.1.1","appinfo":"","role_id":0,"disp_type":0}]});
+2020-03-11 19:50:34  INFO  Fail
+2020-03-11 19:51:22  INFO  执行结果: /**/jQuery110205803985141573091_1574406741069({"status":"0","t":"1574406812539","set_cache_time":"","data":[{"location":"澳大利亚","titlecont":"IP地址查询","origip":"1.1.1.1","origipquery":"1.1.1.1","showlamp":"1","showLikeShare":1,"shareImage":1,"ExtendedLocation":"","OriginQuery":"1.1.1.1","tplt":"ip","resourceid":"6006","fetchkey":"1.1.1.1","appinfo":"","role_id":0,"disp_type":0}]});
+2020-03-11 19:51:22  INFO  Fail
