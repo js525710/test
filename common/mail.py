@@ -1,6 +1,5 @@
-from email.mime.multipart import MIMEMultipart
+# encoding:utf-8
 from smtplib import SMTP_SSL
-
 from common import config, logger
 from email.header import Header
 from email.mime.text import MIMEText
@@ -13,7 +12,7 @@ class Mail:
         self.mail_info['from'] = config.config['mail']
         self.mail_info['username'] = config.config['mail']
 
-        self.mail_info['hostname'] = 'smtp' + config.config['mail'][
+        self.mail_info['hostname'] = 'smtp.' + config.config['mail'][
                                               config.config['mail'].rfind('@') + 1:config.config['mail'].__len__()]
         self.mail_info['password'] = config.config['pwd']
         self.mail_info['to'] = str(config.config['mailto']).split(',')
@@ -66,11 +65,10 @@ class Mail:
 
 if __name__ == '__main__':
     config.get_config('../lib/conf/conf.properties')  # 返回的是一个字典
-    logger.debug(config.config)
+    # logger.debug(config.config)
 
     # 发送邮件
     html = config.config['mailtxt']
-
     mail = Mail()
     mail.mail_info['filepaths'] = ['../lib/log/1.txt', '../lib/log/all.log']
     # mail.mail_info['filepaths'] = ['D:\\QQ\\1161320650\\FileRecv\\Py自动化-第十二课-数据库操作和邮件配置\\module.html']

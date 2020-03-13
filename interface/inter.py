@@ -1,5 +1,7 @@
 # encoding=utf-8
 import json
+
+import jsonpath
 import requests
 from common import logger
 
@@ -12,7 +14,7 @@ class HTTP:
         self.session = requests.session()
         # 默认添加headers信息，可以对对应的key进行修改
         self.session.headers['content-type'] = "application/x-www-form-urlencoded"
-        # self.session.headers['user-agent'] = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36"
+        self.session.headers['user-agent'] = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36"
 
         # 执行结果
         self.result = ''
@@ -26,11 +28,6 @@ class HTTP:
         self.writer = writer
 
     def seturl(self, u):
-        """
-        设置url
-        :param u:
-        :return:
-        """
         if u.startswith("http") or u.startswith("https"):
             self.url = u
             self.writer.write(self.writer.row, 7, 'PASS')
@@ -42,8 +39,7 @@ class HTTP:
             self.writer.write(self.writer.row, 8, 'url格式错误')
             return False
 
-            # post方法
-
+    # post方法
     def post(self, url, d=None, j=None):
         """
         发送post请求
@@ -187,6 +183,10 @@ class HTTP:
         value = self.__get_param(value)
         res = str(self.result)
         try:
+            # s = '{"status":"0","data":[{"location": "澳大利亚", "titlecont":"IP地址查询", "origip": "1.1.1.1"}]}'
+            # jsons = json.loads(s)
+            # res = jsonpath.jsonpath(jsons, 'data[0].location')[0]
+            # print(res)  澳大利亚
             res = str(jsonpath.jsonpath(self.jsonres, key)[0])
         except Exception as e:
             pass

@@ -1,8 +1,12 @@
 # encoding:utf-8
+from common import config
+from common.excelResult import Result
 from common.Excel import Writer, Reader
+from common.mail import Mail
 from interface.inter import HTTP
 import inspect
-
+import json,jsonpath
+import  datetime
 
 def runcase(line, f):
 
@@ -43,9 +47,11 @@ reader.open_excel("./lib/cases/百度ip测试.xls")
 writer = Writer()
 writer.copy_open('./lib/cases/百度ip测试.xls','./lib/results/百度ip测试-result.xls')
 sheetnames = writer.get_sheets()
+
+writer.set_sheet(sheetnames[0])
+writer.write(1,3,str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+
 http = HTTP(writer)
-
-
 for sheet in sheetnames:
     reader.set_sheet(sheet)
     writer.set_sheet(sheet)
@@ -53,4 +59,32 @@ for sheet in sheetnames:
         writer.row = i
         line = reader.readline()
         runcase(line,http)
+
+writer.set_sheet(sheetnames[0])
+writer.write(1,4,str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
 writer.save_close()
+
+res = Result()
+res.get_res('./lib/results/百度ip测试-result.xls')
+
+config.get_config('./lib/conf/conf.properties')  # 返回的是一个字典
+# logger.debug(config.config)
+
+
+# 发送邮件
+
+html = config.config['mailtxt']
+html = html.replace('runtype', res.sumarry['runtype'])
+html = html.replace('title', res.sumarry['title'])
+html = html.replace('starttime', res.sumarry['starttime'])
+html = html.replace('endtime', res.sumarry['endtime'])
+html = html.replace('casecount', res.sumarry['casecount'])
+html = html.replace('passrate', res.sumarry['passrate'])
+html = html.replace('status', res.sumarry['status'])
+if res.sumarry['status'] == 'Fail':
+    html = html.replace('#00d800', 'red')
+
+mail = Mail()
+# mail.mail_info['filepaths'] = ['./lib/log/1.txt', './lib/log/all.log']
+# mail.mail_info['filenames'] = ['1.txt', 'all.log']
+mail.send(html)
