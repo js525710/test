@@ -1,9 +1,11 @@
 # encoding=utf-8
 import json
-
 import jsonpath
 import requests
+import time
+from suds.client import Client
 from common import logger
+from suds.xsd.doctor import ImportDoctor,Import
 
 
 class HTTP:
@@ -326,4 +328,104 @@ class HTTP:
             self.writer.write(self.writer.row, 7, 'FAIL')
             self.writer.write(self.writer.row, 8, e)
             return False
+
+class SOAP:
+    def __init__(self,writer):
+        self.wsdl=''
+        self.client = None
+        self.result = ''
+        self.jsonres = {}
+        self.writer = writer
+        self.headers = {}
+        self.params = {}
+        self.doctor = None
+
+    def setwsdl(self,url):
+         self.wsdl = url
+         self.client = Client(url, doctor=self.doctor)
+         self.writer.write(self.writer.row, 7, 'PASS')
+         self.writer.write(self.writer.row, 8, self.wsdl)
+
+    def callmethod(self,m,l=None):
+        if l ==None or l == '':
+            self.result = self.client.service.__getattr__(m)()
+        else:
+            l = l.split('、')
+            for i in range(len(l)):
+                l[i]= self.__get_param(l[i])
+                if l[i]=='None':
+                    l[i]= None
+            self.result = self.client.service.__getattr__(m)(*l)
+
+        try:
+            jsons = self.result
+            jsons = jsons[jsons.find('{'):jsons.rfind('}')+1]
+            self.jsonres = json.loads(jsons)
+            self.writer.write(self.writer.row,7,'PASS')
+            self.writer.write(self.writer.row, 8, str(self.jsonres))
+        except Exception as e:
+            self.jsonres = {}
+            logger.exception(e)
+            self.writer.write(self.writer.row,7,'PASS')
+            self.writer.write(self.writer.row,8,str(self.result))
+
+    def adddoctor(self,schema,location,namespace):
+        imp = Import(schema, location=location)
+        # targetNamespace
+        imp.filter.add(namespace)
+        self.doctor = ImportDoctor(imp)
+        self.writer.write(self.writer.row, 7, 'PASS')
+
+    def addheader(self,key,value):
+        value = self.__get_param(value)
+        self.headers[key] = value
+        self.client = Client(self.wsdl,headers=self.headers)
+        self.writer.write(self.writer.row, 7, 'PASS')
+        self.writer.write(self.writer.row, 8, str(self.headers))
+        logger.info(str(self.headers))
+
+    def removeheader(self,key):
+        self.headers.pop(key)
+        self.client = Client(self.wsdl,headers=self.headers)
+        self.writer.write(self.writer.row,7,'PASS')
+        self.writer.write(self.writer.row, 8, str(self.headers))
+        logger.info(str(self.headers))
+
+    def savejson(self,jpath,p):
+        try:
+            self.params[p] = str(jsonpath.jsonpath(self.jsonres,jpath)[0])
+            self.writer.write(self.writer.row,7,'PASS')
+            self.writer.write(self.writer.row,8,str(self.params[p]))
+        except Exception as e:
+            logger.error("保存参数失败！没有" + jpath + "这个键")
+            logger.exception(e)
+            self.writer.write(self.writer.row, 7, 'FAIL')
+            self.writer.write(self.writer.row, 8, str(self.jsonres))
+
+
+    def __get_param(self,s):
+        for key in self.params:
+            s = s.replace("{" + key + "}",self.params[key])
+        return s
+
+    def assertequals(self,jpath,value):
+        value = self.__get_param(value)
+        if value == None:
+            value = None
+        res = str(self.result)
+        try:
+            res = str(jsonpath.jsonpath(self.jsonres,jpath)[0])
+        except Exception as e:
+            res = None
+            pass
+        if res == str(value):
+            logger.info("PASS")
+            self.writer.write(self.writer.row, 7, 'PASS')
+            self.writer.write(self.writer.row, 8, res)
+        else:
+            logger.info('Fail')
+            if res == None:
+                res = 'None'
+            self.writer.write(self.writer.row,7,'Fail')
+            self.writer.write(self.writer.row,8,"实际结果："+res + " 预期结果：" + value)
 
